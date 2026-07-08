@@ -88,8 +88,16 @@ def pooled_proportion(successes_a, total_a, successes_b, total_b):
     # TODO: Compute the pooled success proportion across two groups for the null of equal rates.
     return float((successes_a + successes_b) / (total_a + total_b))
 
-# Step 4 - pooled_standard_error (not yet solved)
-# TODO: implement
+# Step 4 - pooled_standard_error
+import math
+
+def pooled_standard_error(pooled_p, total_a, total_b):
+    """Standard error of the difference in two proportions under the pooled null."""
+    # TODO: compute sqrt( p*(1-p) * (1/n_a + 1/n_b) ) using the pooled proportion.
+    var = pooled_p * (1-pooled_p) * (1/total_a + 1/total_b)
+    std = math.sqrt(var)
+
+    return std
 
 # Step 5 - two_proportion_z_statistic (not yet solved)
 # TODO: implement
