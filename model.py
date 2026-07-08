@@ -170,8 +170,28 @@ def chi_square_statistic(observed_counts, expected_counts):
     # TODO: return the Pearson chi-square statistic comparing observed to expected counts.
     return sum([(o-e)**2/e for o, e in zip(observed_counts, expected_counts)])
 
-# Step 12 - sample_ratio_mismatch_check (not yet solved)
-# TODO: implement
+# Step 12 - sample_ratio_mismatch_check
+import math
+import numpy as np
+
+def sample_ratio_mismatch_check(observed_counts, expected_ratios, alpha):
+    # TODO: return dict with 'chi_square', 'p_value', 'srm_detected' for the two-group SRM test
+    observed_counts = np.array(observed_counts)
+    expected_ratios = np.array(expected_ratios)
+
+    N = np.sum(observed_counts)
+    expected_counts = N * expected_ratios
+
+    chi_square = chi_square_statistic(observed_counts, expected_counts)
+    
+    chi = math.sqrt(chi_square)
+
+    p_value = 2*(1-standard_normal_cdf(chi))
+
+    return {'chi_square': float(chi_square),
+            'p_value': p_value,
+            'srm_detected': p_value <= alpha
+            }
 
 # Step 13 - bonferroni_correction (not yet solved)
 # TODO: implement
