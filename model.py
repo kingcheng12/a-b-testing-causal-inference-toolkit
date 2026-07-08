@@ -106,8 +106,12 @@ def two_proportion_z_statistic(p_a, p_b, pooled_se):
 
     return z
 
-# Step 6 - two_sided_p_value (not yet solved)
-# TODO: implement
+# Step 6 - two_sided_p_value
+def two_sided_p_value(z):
+    # TODO: convert a z-statistic into a two-sided p-value under the standard normal
+    p = 2 * (1-standard_normal_cdf(abs(z)))
+
+    return p
 
 # Step 7 - unpooled_standard_error (not yet solved)
 # TODO: implement
