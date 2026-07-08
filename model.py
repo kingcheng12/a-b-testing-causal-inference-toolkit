@@ -165,8 +165,10 @@ def statistical_power(sample_size_per_variant, baseline_rate, effect_size, alpha
 
     return standard_normal_cdf(z_power)
 
-# Step 11 - chi_square_statistic (not yet solved)
-# TODO: implement
+# Step 11 - chi_square_statistic
+def chi_square_statistic(observed_counts, expected_counts):
+    # TODO: return the Pearson chi-square statistic comparing observed to expected counts.
+    return sum([(o-e)**2/e for o, e in zip(observed_counts, expected_counts)])
 
 # Step 12 - sample_ratio_mismatch_check (not yet solved)
 # TODO: implement
