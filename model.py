@@ -83,8 +83,10 @@ def standard_normal_ppf(p):
         return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / \
                 ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1.0)
 
-# Step 3 - pooled_proportion (not yet solved)
-# TODO: implement
+# Step 3 - pooled_proportion
+def pooled_proportion(successes_a, total_a, successes_b, total_b):
+    # TODO: Compute the pooled success proportion across two groups for the null of equal rates.
+    return (successes_a + successes_b) / (total_a + total_b)
 
 # Step 4 - pooled_standard_error (not yet solved)
 # TODO: implement
