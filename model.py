@@ -147,7 +147,7 @@ def required_sample_size_per_variant(baseline_rate, minimum_detectable_effect, a
 
     n = (z_ci * math.sqrt(2*p_hat*(1-p_hat)) + z_power * math.sqrt(p1 * (1-p1) + p2 * (1-p2))) ** 2 / minimum_detectable_effect ** 2
 
-    return round(n)
+    return math.ceil(n)
 
 # Step 10 - statistical_power (not yet solved)
 # TODO: implement
