@@ -86,7 +86,7 @@ def standard_normal_ppf(p):
 # Step 3 - pooled_proportion
 def pooled_proportion(successes_a, total_a, successes_b, total_b):
     # TODO: Compute the pooled success proportion across two groups for the null of equal rates.
-    return (successes_a + successes_b) / (total_a + total_b)
+    return float((successes_a + successes_b) / (total_a + total_b))
 
 # Step 4 - pooled_standard_error (not yet solved)
 # TODO: implement
