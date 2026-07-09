@@ -248,8 +248,20 @@ def difference_in_differences_simple(treated_pre, treated_post, control_pre, con
 
     return float(treated_diff - control_diff)
 
-# Step 17 - build_did_design_matrix (not yet solved)
-# TODO: implement
+# Step 17 - build_did_design_matrix
+def build_did_design_matrix(treatment_indicator, post_indicator):
+    # TODO: return an (n, 4) matrix with columns [intercept, treatment, post, treatment*post].
+    treatment_indicator = np.array(treatment_indicator)
+    post_indicator = np.array(post_indicator)
+
+    n = len(treatment_indicator)
+    design = np.ones((n,4), dtype = np.float32)
+
+    design[:, 1] = treatment_indicator
+    design[:, 2] = post_indicator
+    design[:, 3] = treatment_indicator * post_indicator
+
+    return design
 
 # Step 18 - ols_normal_equations (not yet solved)
 # TODO: implement
