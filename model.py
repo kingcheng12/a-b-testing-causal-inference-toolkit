@@ -205,8 +205,35 @@ def bonferroni_correction(p_values, alpha):
 
     return p_values <= alpha/m
 
-# Step 14 - benjamini_hochberg_correction (not yet solved)
-# TODO: implement
+# Step 14 - benjamini_hochberg_correction
+import numpy as np
+
+def benjamini_hochberg_correction(p_values, alpha):
+    """Return a boolean array marking BH-significant hypotheses at level alpha."""
+    # TODO: apply the Benjamini-Hochberg FDR procedure and return a mask in original order.
+    
+    p_values = np.array(p_values)
+    m = len(p_values)
+
+    sorted_idx = np.argsort(p_values)
+    sorted_p = p_values[sorted_idx]
+        
+    k_max = -1
+
+    for i in range(m - 1, -1, -1):
+        rank = i + 1
+        threshold = rank * alpha / m
+
+        if sorted_p[i] <= threshold:
+            k_max = i
+            break
+
+    significant = np.zeros(m, dtype=bool)
+
+    if k_max != -1:
+        significant[sorted_idx[:k_max + 1]] = True
+    
+    return significant
 
 # Step 15 - group_mean_change (not yet solved)
 # TODO: implement
