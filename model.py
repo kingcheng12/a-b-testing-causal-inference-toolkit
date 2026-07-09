@@ -284,8 +284,43 @@ def did_effect_from_regression(treatment_indicator, post_indicator, outcomes):
 
     return effect
 
-# Step 20 - fit_synthetic_control_weights (not yet solved)
-# TODO: implement
+# Step 20 - fit_synthetic_control_weights
+def fit_synthetic_control_weights(treated_pre, donor_pre, num_iterations=5000, learning_rate=0.01):
+    # TODO: fit non-negative donor weights that sum to 1 so donor_pre @ w approximates treated_pre.
+    treated_pre = np.array(treated_pre, dtype=np.float64)
+    donor_pre = np.array(donor_pre, dtype=np.float64)
+
+    T, num_donors = donor_pre.shape
+
+    # one unconstrained parameter per donor
+    theta = np.zeros(num_donors)
+
+    for _ in range(num_iterations):
+        # Convert unconstrained theta into valid simplex weights
+        theta_exp = np.exp(theta - np.max(theta))
+        w = theta_exp / np.sum(theta_exp)
+
+        # Prediction
+        pred = donor_pre @ w
+
+        # Error
+        error = pred - treated_pre
+
+        # Gradient of MSE loss wrt w
+        grad_w = donor_pre.T @ error
+
+        # Gradient through softmax:
+        # dw/dtheta = softmax Jacobian
+        grad_theta = w * (grad_w - np.dot(w, grad_w))
+
+        # Gradient descent update
+        theta -= learning_rate * grad_theta
+
+    # Final weights
+    theta_exp = np.exp(theta - np.max(theta))
+    w = theta_exp / np.sum(theta_exp)
+
+    return w
 
 # Step 21 - synthetic_control_effect (not yet solved)
 # TODO: implement
