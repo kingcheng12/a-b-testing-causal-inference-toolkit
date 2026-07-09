@@ -340,6 +340,39 @@ def synthetic_control_effect(treated_post, donor_post, weights):
         'average_effect':avg_effect,
     }
 
-# Step 22 - ship_decision (not yet solved)
-# TODO: implement
+# Step 22 - ship_decision
+def ship_decision(primary_result, guardrail_results):
+    # TODO: Combine primary and guardrail outcomes into a ship/no-ship decision dict.
+
+
+    primary_decision = (primary_result['p_value'] < primary_result['alpha']) and (primary_result['effect']) > 0
+    out = {'ship': None, 'reason': None}
+
+    if not primary_decision:
+        if primary_result['p_value'] >= primary_result['alpha']:
+            out['ship'] = False
+            out['reason'] = 'primary metric not significant'
+        elif primary_result['effect'] <= 0:
+            out['ship'] = False
+            out['reason'] = 'primary metric effect not positive'
+        return out
+
+    for i, guardrail in enumerate(guardrail_results):
+        if guardrail['harm_direction'] == 'negative':
+            guardrail_rejection = (guardrail['effect'] < 0) and (guardrail['p_value'] < guardrail['alpha'])
+        elif guardrail['harm_direction'] == 'positive':
+            guardrail_rejection = (guardrail['effect'] > 0) and (guardrail['p_value'] < guardrail['alpha'])
+        else:
+            raise ValueError
+        
+        if guardrail_rejection:
+            out['ship'] = False
+            out['reason'] = f'guardrail {i} harmed'
+
+            return out
+
+    out['ship'] = True
+    out['reason'] = 'ship'
+
+    return out
 
