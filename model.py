@@ -235,8 +235,10 @@ def benjamini_hochberg_correction(p_values, alpha):
     
     return significant
 
-# Step 15 - group_mean_change (not yet solved)
-# TODO: implement
+# Step 15 - group_mean_change
+def group_mean_change(pre_outcomes, post_outcomes):
+
+    return float(sum(post_outcomes)/len(post_outcomes) - sum(pre_outcomes)/len(pre_outcomes))
 
 # Step 16 - difference_in_differences_simple (not yet solved)
 # TODO: implement
