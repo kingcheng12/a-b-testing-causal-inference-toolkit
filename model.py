@@ -263,8 +263,13 @@ def build_did_design_matrix(treatment_indicator, post_indicator):
 
     return design
 
-# Step 18 - ols_normal_equations (not yet solved)
-# TODO: implement
+# Step 18 - ols_normal_equations
+def ols_normal_equations(design_matrix, outcomes):
+    # TODO: Fit an OLS regression by solving the normal equations and return the coefficient vector.
+    A = design_matrix.T @ design_matrix
+    b = design_matrix.T @ outcomes
+
+    return np.linalg.lstsq(A, b, rcond=None)[0]
 
 # Step 19 - did_effect_from_regression (not yet solved)
 # TODO: implement
