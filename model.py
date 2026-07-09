@@ -193,8 +193,17 @@ def sample_ratio_mismatch_check(observed_counts, expected_ratios, alpha):
             'srm_detected': p_value <= alpha
             }
 
-# Step 13 - bonferroni_correction (not yet solved)
-# TODO: implement
+# Step 13 - bonferroni_correction
+import numpy as np
+
+def bonferroni_correction(p_values, alpha):
+    # TODO: return a boolean numpy array marking which p-values are significant after Bonferroni.
+    
+    p_values = np.array(p_values)
+    alpha = np.array(alpha)
+    m = p_values.shape[0]
+
+    return p_values <= alpha/m
 
 # Step 14 - benjamini_hochberg_correction (not yet solved)
 # TODO: implement
