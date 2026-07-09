@@ -240,8 +240,13 @@ def group_mean_change(pre_outcomes, post_outcomes):
 
     return float(sum(post_outcomes)/len(post_outcomes) - sum(pre_outcomes)/len(pre_outcomes))
 
-# Step 16 - difference_in_differences_simple (not yet solved)
-# TODO: implement
+# Step 16 - difference_in_differences_simple
+def difference_in_differences_simple(treated_pre, treated_post, control_pre, control_post):
+    # TODO: return treated group's pre->post change minus control group's pre->post change.
+    treated_diff = group_mean_change(treated_pre, treated_post)
+    control_diff = group_mean_change(control_pre, control_post)
+
+    return float(treated_diff - control_diff)
 
 # Step 17 - build_did_design_matrix (not yet solved)
 # TODO: implement
