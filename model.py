@@ -271,8 +271,18 @@ def ols_normal_equations(design_matrix, outcomes):
 
     return np.linalg.lstsq(A, b, rcond=None)[0]
 
-# Step 19 - did_effect_from_regression (not yet solved)
-# TODO: implement
+# Step 19 - did_effect_from_regression
+def did_effect_from_regression(treatment_indicator, post_indicator, outcomes):
+    # TODO: fit DiD via OLS and return the interaction coefficient as a float.
+    
+    design = build_did_design_matrix(treatment_indicator, post_indicator)
+    coef = ols_normal_equations(design, outcomes)
+
+    effect = float(coef[-1])
+    if abs(effect) < 1e-12:
+        effect = 0.0
+
+    return effect
 
 # Step 20 - fit_synthetic_control_weights (not yet solved)
 # TODO: implement
