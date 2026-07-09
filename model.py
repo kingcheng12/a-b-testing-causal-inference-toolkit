@@ -322,8 +322,23 @@ def fit_synthetic_control_weights(treated_pre, donor_pre, num_iterations=5000, l
 
     return w
 
-# Step 21 - synthetic_control_effect (not yet solved)
-# TODO: implement
+# Step 21 - synthetic_control_effect
+def synthetic_control_effect(treated_post, donor_post, weights):
+    # TODO: build synthetic series, per-period gap, and average post-period effect
+    treated_post = np.array(treated_post)
+    donor_post = np.array(donor_post)
+    weights = np.array(weights)
+
+    y_hat = donor_post @ weights
+    gap = treated_post - y_hat
+
+    avg_effect = np.mean(gap)
+
+    return {
+        'synthetic':y_hat,
+        'gap':gap,
+        'average_effect':avg_effect,
+    }
 
 # Step 22 - ship_decision (not yet solved)
 # TODO: implement
